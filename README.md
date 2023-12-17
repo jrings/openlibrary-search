@@ -78,6 +78,15 @@ python3 openlibrary-data-chunk-process.py
 This generates multiple files into the `data/processed` directory.
 One of those files will be used to access the rest of them when loading the data.
 
+
+### NEW jr: Process in bash
+
+Filter only works that have a description, only the JSON:
+
+```bash
+awk -F'\t' '{print $NF}' ol_dump_works_latest.txt | jq -c 'select(.description != null)' > works_with_desc.txt
+```
+
 ### Import into database
 
 It is then possible to import the data directly into PostgreSQL tables and do complex searches with SQL.
